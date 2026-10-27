@@ -1,0 +1,386 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>ただダウンロードしたいだけなのに。｜モード選択</title><style>
+:root{font-family:system-ui,-apple-system,'Hiragino Kaku Gothic ProN',sans-serif;color:#172133;background:#0d1221}*{box-sizing:border-box}body{margin:0}button,input{font:inherit;color:#172133}button{color:#172133}.secondary{color:#172133}.link{color:#5f6c7d}.close{color:#172133}.tile{color:#172133}.primary,.fake,.danger{color:#fff}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.5}.wrap{max-width:800px;margin:auto;padding:14px}.top{color:#fff;display:flex;justify-content:space-between;align-items:center;gap:8px}.brand{font-size:18px;font-weight:900}.sub{color:#9da9c6;font-size:12px}.stats{display:flex;gap:8px}.stat{background:#1c2740;padding:8px 12px;border-radius:12px;text-align:center;min-width:74px}.stat b{display:block;font-variant-numeric:tabular-nums}.bar{height:5px;background:#303c54;margin:12px 0;border-radius:5px;overflow:hidden}.fill{height:100%;background:#66e2b2;width:0;transition:width .3s}.browser{position:relative;overflow:hidden;background:#f7f9fc;border:1px solid #46516b;border-radius:17px;min-height:570px;box-shadow:0 18px 50px #05071188}.chrome{background:#e8edf4;padding:11px;display:flex;align-items:center;gap:9px;border-bottom:1px solid #d6deeb}.dots{color:#8592a7}.address{flex:1;background:white;border-radius:20px;padding:7px 12px;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.site{padding:22px 18px;max-width:620px;margin:auto}.site h1{font-size:25px;line-height:1.35;margin:10px 0}.muted{color:#687487;font-size:14px}.panel{background:white;border:1px solid #e1e7f0;box-shadow:0 4px 20px #15294a0d;border-radius:15px;padding:18px;margin:14px 0}.primary{border:0;background:#2563eb;color:white;border-radius:10px;padding:13px 18px;font-weight:800}.secondary{border:1px solid #cbd5e1;background:#fff;border-radius:10px;padding:12px 15px}.danger{background:#f43f5e;color:white;border:0;padding:11px;border-radius:10px}.wide{width:100%}.hint{background:#edf4ff;color:#33517b;padding:10px;border-radius:9px;font-size:13px}.fake{background:#16a34a;color:white;border:0;border-radius:6px;padding:14px;font-weight:900;box-shadow:0 3px 0 #166534}.adtag{font-size:10px;color:#788396}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.between{justify-content:space-between}.adbox{border:2px solid #fbbf24;background:#fffbeb;padding:13px;border-radius:11px}.overlay{position:absolute;inset:44px 0 0;background:#07101b88;display:flex;align-items:center;justify-content:center;padding:15px;z-index:5}.modal{background:white;width:min(100%,420px);border-radius:16px;padding:20px;box-shadow:0 18px 70px #0005;max-height:85%;overflow:auto}.modal h2{margin:0 0 10px}.tiny{font-size:11px;color:#6b7280}.link{border:0;background:transparent;color:#5f6c7d;text-decoration:underline;padding:8px}.toast{position:absolute;bottom:15px;left:12px;right:12px;background:#18233c;color:#fff;padding:12px 15px;border-radius:11px;z-index:15;text-align:center;box-shadow:0 8px 22px #0005}.shake{animation:shake .25s}@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}.captcha{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.tile{aspect-ratio:1;background:#dbeafe;border:3px solid transparent;border-radius:7px;font-size:31px}.tile.sel{border-color:#2563eb;background:#93c5fd}.notif{background:#e2e8f0;border-radius:10px;padding:12px;margin:6px 0;display:flex;justify-content:space-between;align-items:center}.progress{height:18px;background:#e5e7eb;border-radius:30px;overflow:hidden}.progress>div{height:100%;background:#3b82f6;transition:width .2s}.end{text-align:center;padding:30px 12px}.end h1{font-size:28px}.pill{display:inline-block;background:#dbeafe;color:#1e40af;border-radius:20px;padding:5px 12px;font-size:12px}.foot{color:#a7b2c8;font-size:12px;text-align:center;margin:15px}.close{float:right;background:#eef2f7;border:0;border-radius:7px;padding:5px 9px}.floating{position:absolute;z-index:7;background:#fff;border:2px solid #f59e0b;border-radius:12px;padding:12px;box-shadow:0 10px 30px #0004;max-width:225px}.check{display:flex;gap:8px;align-items:center;margin:9px 0}.check input{width:19px;height:19px}.article{line-height:1.9}#screen{min-height:490px}@media(max-width:500px){.wrap{padding:8px}.brand{font-size:15px}.stat{padding:7px;min-width:60px}.browser{min-height:650px}.site{padding:16px 13px}.site h1{font-size:22px}.modal{padding:17px}}
+
+/* 軽い演出。動きを減らす設定にも対応 */
+.site{animation:pageIn .24s ease-out}.modal{animation:popIn .2s ease-out}
+.toast{animation:toastIn .2s ease-out}.primary,.secondary,.fake,.link,.close{transition:transform .1s,filter .14s}
+button:active{transform:scale(.975)}button:hover{filter:brightness(.96)}
+@keyframes pageIn{from{opacity:.45;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes popIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+@keyframes toastIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+#audioToggle{background:#293954;border:1px solid #54637c;color:white;border-radius:9px;padding:7px 9px;font-size:12px;white-space:nowrap}
+@media(prefers-reduced-motion:reduce){.site,.modal,.toast,.shake{animation:none!important}button{transition:none}}
+
+.notif{gap:12px;min-height:62px}.notif>span{flex:1;min-width:0;overflow-wrap:anywhere;line-height:1.4}.notif .close{float:none;flex:0 0 36px;min-width:36px;height:36px;display:grid;place-items:center;padding:0;font-size:18px}
+#notes{display:grid;gap:7px}#notes .notif{margin:0}
+.captcha{gap:4px}.tile{padding:0;overflow:hidden;position:relative;min-width:0;aspect-ratio:1;border-radius:3px;background:#b5c9d6}.tile svg{width:100%;height:100%;display:block}.tile.sel{background:#b5c9d6;border-color:#2873f0}.tile.sel:after{content:'✓';position:absolute;top:3px;left:3px;background:#2873f0;color:white;border-radius:50%;font:bold 14px system-ui;width:23px;height:23px;display:grid;place-items:center}
+.ad-video{position:relative;overflow:hidden;height:210px;border-radius:12px;background:linear-gradient(140deg,#151a3c,#6943a3 55%,#e46f9d);color:#fff;display:grid;place-items:center;text-align:center}
+.ad-video:before{content:'';position:absolute;width:270px;height:270px;border:32px solid #ffffff14;border-radius:50%;animation:adFloat 5s linear infinite}
+.ad-video:after{content:'';position:absolute;width:125px;height:125px;background:#ffffff18;border-radius:24px;transform:rotate(28deg);right:-25px;top:-20px}
+.ad-video-inner{position:relative;z-index:1}.ad-video-title{font-weight:950;font-size:27px;text-shadow:0 3px 10px #0008}.ad-video-pill{display:inline-block;background:#ffdf52;color:#34235b;font-size:12px;font-weight:900;border-radius:30px;padding:5px 12px;margin-bottom:10px}
+.ad-video-price{font-size:42px;font-weight:950;color:#ffed8b;letter-spacing:-2px}
+.ad-video-progress{height:5px;background:#d8d8df;margin-top:10px;border-radius:6px;overflow:hidden}.ad-video-progress>div{height:100%;width:0;background:#f3a42c;transition:width .12s linear}
+@keyframes adFloat{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.ad-video:before{animation:none}}
+
+.virus-dialog{text-align:center}.virus-head{display:flex;justify-content:space-between;align-items:center;gap:8px;text-align:left;background:#fff0f0;border:1px solid #ffc5c5;padding:9px;border-radius:9px;color:#a22d34;font-weight:800;font-size:13px}.virus-fiction{font-size:10px;font-weight:600;color:#715d62}.virus-symbol{margin:14px auto 12px;background:#fce5e5;border:3px solid #df4b4b;color:#c72e36;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;font-weight:950;font-size:38px}.virus-dialog h2{font-size:21px;line-height:1.4}.virus-counter{background:#fff3dd;border:1px solid #f2cf9c;color:#815024;border-radius:8px;padding:9px;font-size:13px;font-weight:700;margin:14px 0}.virus-dialog .danger{font-weight:800;font-size:15px}.virus-dialog .link{font-size:12px;margin-top:7px}
+
+.captcha-choice{display:grid;gap:9px;margin-top:14px}.captcha-choice button{width:100%;text-align:left;padding:13px 15px;border:1px solid #d6dfed;border-radius:10px;background:#fff;color:#172133}.captcha-choice button:hover{border-color:#3b82f6;background:#eff6ff}.captcha-choice .sponsored{font-size:10px;color:#8a92a3;margin-bottom:4px}.captcha-choice .bait{font-weight:800}.captcha-choice .next-choice{background:#f8fafc;font-weight:700}.captcha-choice .next-choice small{display:block;color:#748094;font-weight:400;margin-top:4px}
+.final-burst{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin:20px 0}.final-burst span{padding:9px 12px;border:2px solid #fbbf24;background:#fffbeb;border-radius:9px;font-weight:800;font-size:12px;animation:popIn .2s ease-out}.final-burst span:nth-child(even){background:#dbeafe;border-color:#60a5fa}@media(prefers-reduced-motion:reduce){.final-burst span{animation:none}}.virus-dialog{position:relative}.virus-x{position:absolute;right:-12px;top:-12px;width:35px;height:35px;border:1px solid #b7c1d2;border-radius:50%;background:#f8fafc;color:#172133;font-size:22px;font-weight:800;line-height:1}.virus-options{display:grid;gap:9px;margin:16px 0}.virus-options button{width:100%;min-height:44px}.virus-dialog .virus-head{padding-right:18px}#devToggle{background:#293954;border:1px solid #54637c;color:white;border-radius:9px;padding:7px 9px;font-size:12px;white-space:nowrap}
+#devOverlay{position:fixed;inset:0;background:#050914c9;z-index:9999;display:none;align-items:center;justify-content:center;padding:16px}
+#devOverlay.open{display:flex}
+.dev-box{background:#fff;color:#172133;width:min(100%,540px);max-height:90vh;overflow:auto;border-radius:16px;padding:20px;box-shadow:0 18px 60px #0008}
+.dev-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.dev-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:15px 0}
+.dev-grid button{font-size:13px;text-align:left;padding:11px;min-height:50px}
+.dev-box input{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;margin:10px 0}
+.dev-note{font-size:12px;color:#64748b;line-height:1.5}
+@media(max-width:550px){.stats{gap:4px}.dev-grid{grid-template-columns:1fr}#devToggle{padding:7px 5px}}
+.fake-permission{border:1px solid #cbd5e1;background:#f8fafc;border-radius:16px;padding:20px 16px;text-align:center;margin:16px 0}.fake-permission h3{margin:10px 0}.fake-permission-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:16px}.fake-permission-actions button{min-height:48px;font-size:13px}
+/* OS風のダイアログ。ただし実際の権限取得は一切行わない。 */
+.permission-dim{position:absolute;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:rgba(13,20,36,.46);padding:14px;animation:permissionFade .18s ease-out}
+.permission-scene{width:min(100%,350px);display:flex;flex-direction:column;align-items:center;gap:12px}
+.permission-native{background:#f9f9fc;color:#171a24;width:100%;border-radius:19px;box-shadow:0 16px 60px #0004;text-align:center;overflow:hidden;padding:20px 16px 0;animation:permissionPop .2s ease-out}
+.permission-native h2{font-size:17px;line-height:1.45;margin:8px 0 10px;color:#171a24}
+.permission-native p{font-size:13px;line-height:1.5;color:#656b78;margin:7px 0 17px}
+.permission-small{font-size:12px;color:#818797}
+.permission-appicon{margin:auto;width:54px;height:54px;display:grid;place-items:center;border-radius:14px;background:#e5ecfa;font-size:30px}
+.permission-stars{display:flex;justify-content:center;gap:6px;margin:18px 0}
+.permission-stars button{border:0;background:none;color:#c9cbd2;font-size:37px;cursor:pointer;padding:2px}
+.permission-stars button:hover,.permission-stars button.picked{color:#f59e0b}
+.permission-link{display:block;width:calc(100% + 32px);margin:0 -16px;border:0;border-top:1px solid #e4e6ed;border-radius:0;background:transparent;color:#2665c7;font-size:15px;padding:13px}
+.permission-native-icon{font-size:33px;margin:0 auto 12px}
+.permission-native-actions{display:grid;grid-template-columns:1fr 1fr;margin:0 -16px}
+.permission-native-actions button{border:0;border-top:1px solid #dfe1e7;background:transparent;color:#2767c6;padding:16px 6px;font-size:15px;border-radius:0}
+.permission-native-actions button+button{border-left:1px solid #dfe1e7;font-weight:700}
+.permission-notice{border-radius:12px;text-align:left;padding-top:16px}
+.permission-notice .permission-native-icon{font-size:21px;text-align:left;margin-bottom:2px}
+.permission-notice h2{font-size:15px}
+.permission-camera{border-radius:26px;background:#f2f3f5}
+.permission-location{border-radius:14px;background:#fff}
+.permission-disclaimer{font-size:11px;color:#fff;background:#0009;border-radius:12px;padding:5px 9px;text-align:center}
+@keyframes permissionPop{from{transform:scale(.92);opacity:.3}to{transform:scale(1);opacity:1}}
+@keyframes permissionFade{from{opacity:0}to{opacity:1}}
+ .permission-reaction{padding-bottom:0}.permission-reaction-extra{background:#f1f5f9;border-radius:9px;padding:12px;margin:14px 0;color:#334155;font-size:13px}.permission-reaction-close{width:calc(100% + 32px);margin:0 -16px;border:0;border-top:1px solid #dfe1e7;border-radius:0;background:transparent;color:#2563eb;font-weight:700;padding:15px;font-size:15px}
+.mode-choices{display:grid;gap:12px;margin:18px 0}.mode-card{display:flex;flex-direction:column;gap:7px;width:100%;text-align:left;border:2px solid #cbd5e1;background:#f8fafc;border-radius:13px;padding:18px;color:#1e293b;transition:transform .12s,border-color .12s}.mode-card:hover{border-color:#2563eb;transform:translateY(-2px)}.mode-card strong{font-size:18px}.mode-card span{font-size:13px;color:#475569}.mode-card small{font-size:12px;color:#64748b}.mode-card.hard{background:#fff7ed;border-color:#fdba74}.mode-card.hard:hover{border-color:#ea580c}
+.hard-choices{display:grid;gap:9px;margin-top:18px}.hard-choices button{border-radius:6px;padding:14px;text-align:center}.hard-bait{background:linear-gradient(100deg,#16a34a,#0e7490);color:#fff;border:0;font-weight:900;box-shadow:0 4px 0 #0002}.hard-real{background:transparent;border:1px solid #cbd5e1;color:#64748b;font-size:12px}.hard-gate h2{margin-top:15px}
+
+/* iOS Safari / Android Chrome: touch layout and safe-area support */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior-y:contain}
+body{min-width:0;padding-bottom:env(safe-area-inset-bottom,0px);touch-action:pan-y}
+button,.tile,.check,label{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+button{min-height:42px}input,select,textarea{font-size:16px;max-width:100%;min-height:42px}
+input[type=checkbox],input[type=radio]{min-height:0}
+.wrap{width:100%;min-width:0;padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+.top,.stats,.row{min-width:0}.top{flex-wrap:wrap}.brand{overflow-wrap:anywhere}
+.browser{min-width:0;overflow:hidden}.site,.panel,.modal,.permission-native{min-width:0;overflow-wrap:anywhere}
+.overlay{align-items:center;overflow-y:auto;-webkit-overflow-scrolling:touch;max-height:100%;overscroll-behavior:contain}
+.modal{max-height:min(82dvh,680px);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.floating{max-width:min(225px,85vw)}
+.mode-card{min-height:72px}
+@media(hover:none){button:hover{filter:none}.mode-card:hover{transform:none}.permission-stars button:hover{color:#c9cbd2}}
+@media(max-width:480px){
+ .wrap{padding-top:8px}.top{gap:5px}.brand{font-size:14px}.stats{gap:5px;flex-wrap:wrap}.stat{min-width:56px;padding:5px 7px;font-size:12px}
+ .browser{min-height:600px;border-radius:12px}.site{padding:15px 12px}.panel{padding:13px;margin:10px 0}
+ .overlay{padding:9px;inset:43px 0 0}.modal{width:100%;padding:16px;max-height:calc(100dvh - 125px)}
+ .captcha{gap:4px}.tile{font-size:clamp(22px,7vw,31px);padding:2px}
+ .permission-native{max-width:calc(100vw - 24px)}
+ .mode-choices{gap:9px}.mode-card{padding:14px}
+}
+@media(max-width:360px){.site h1{font-size:20px}.brand{font-size:13px}.stat{font-size:11px}.modal{padding:12px}}
+</style></head><body><div class="wrap"><header class="top"><div><div class="brand">📁 ただダウンロードしたいだけなのに。</div><div class="sub">架空のインターネット体験 · v5.5</div></div><div class="stats"><button id="devToggle" type="button" title="開発者メニュー" aria-label="開発者メニュー">⚙ 開発</button><button id="audioToggle" type="button" aria-label="サウンドの切り替え">🔊 音 ON</button><div class="stat"><span class="sub">TIME</span><b id="timer">00:00.0</b></div><div class="stat"><span class="sub">誤クリック</span><b id="miss">0</b></div></div></header><div class="bar"><div id="fill" class="fill"></div></div><div class="browser" id="browser"><div class="chrome"><span class="dots">● ● ●</span><div class="address" id="url">https://totally-normal.example</div><span>⋮</span></div><main id="screen"></main><div id="layer"></div><div id="toast"></div></div><div id="devOverlay" role="dialog" aria-modal="true" aria-label="開発者メニュー"><div class="dev-box" id="devBox"></div></div><div class="foot">このゲーム内の広告・警告・サイトはすべて架空です。外部サイトや課金への誘導はありません。</div></div><script>
+const $=s=>document.querySelector(s),screen=$('#screen'),layer=$('#layer');let stage=-1,miss=0,start=0,elapsed=0,tick=null,flags={},best=(()=>{try{return Number(localStorage.getItem('adhell_best')||0)}catch(e){return 0}})();const total=12;let gameMode='normal',hardGateSeen=new Set();
+// Web Audio API: 外部音源不要。開始操作後にだけ再生。
+let audioOn=true,audioCtx=null,musicTimer=null,musicStep=0;
+const AudioContextClass=window.AudioContext||window.webkitAudioContext;
+function tone(freq=440,duration=.08,type='sine',gain=.035,delay=0){
+ if(!audioOn||!AudioContextClass)return;
+ try{audioCtx=audioCtx||new AudioContextClass();if(audioCtx.state==='suspended')audioCtx.resume();
+ const t=audioCtx.currentTime+delay,o=audioCtx.createOscillator(),g=audioCtx.createGain();
+ o.type=type;o.frequency.setValueAtTime(freq,t);g.gain.setValueAtTime(.0001,t);
+ g.gain.exponentialRampToValueAtTime(gain,t+.009);g.gain.exponentialRampToValueAtTime(.0001,t+duration);
+ o.connect(g);g.connect(audioCtx.destination);o.start(t);o.stop(t+duration+.02);
+ }catch(e){}
+}
+function sfx(kind){
+ if(kind==='wrong'){tone(210,.11,'sawtooth',.024);tone(155,.15,'square',.012,.1)}
+ if(kind==='next'){tone(520,.08,'sine',.032);tone(740,.12,'sine',.025,.09)}
+ if(kind==='click')tone(470,.045,'triangle',.013);
+ if(kind==='win'){
+  // ゴール専用ファンファーレ。BGMより大きめで、最後に和音を鳴らす。
+  const notes=[523.25,659.25,783.99,1046.5,783.99,1046.5,1318.51];
+  const offsets=[0,.12,.24,.38,.53,.65,.79];
+  notes.forEach((f,i)=>tone(f,i===6?.65:.17,'triangle',i===6?.075:.06,offsets[i]));
+  [523.25,659.25,783.99,1046.5].forEach(f=>tone(f,.7,'sine',.034,.96));
+ }
+}
+// 8-bit風のオリジナルBGM。メロディ・ベース・リズムを重ねる。
+function startMusic(){
+ if(musicTimer)return;
+ const melody=[330,392,440,0,392,330,294,0,330,392,494,440,392,0,294,0,
+  349,440,523,0,494,440,392,0,349,392,440,349,330,294,262,0];
+ const bass=[110,110,146.83,146.83,130.81,130.81,98,98];
+ musicTimer=setInterval(()=>{
+  if(!audioOn||stage<0||stage>=total)return;
+  const i=musicStep++;
+  // 小気味よいゲームBGM。各パートの音量は控えめに。
+  const f=melody[i%melody.length];
+  if(f)tone(f,.16,'square',.008);
+  if(i%2===0)tone(bass[Math.floor(i/4)%bass.length],.31,'triangle',.012);
+  if(i%4===2)tone(170,.045,'triangle',.003);
+  if(i%8===7)tone(880,.028,'sine',.0025);
+ },205);
+}
+$('#audioToggle').onclick=()=>{
+ audioOn=!audioOn;$('#audioToggle').textContent=audioOn?'🔊 音 ON':'🔇 音 OFF';
+ if(audioOn){sfx('next');startMusic()}
+};
+document.addEventListener('click',e=>{if(e.target.closest('button')&&e.target.id!=='audioToggle')sfx('click')},true);
+const stages=['ダウンロードボタン','Cookie設定','広告を閉じる','ロボット認証','パスワード作成','二段階認証地獄','偽ウイルス警告','動画をスキップ','サブスク解約','検索結果の罠','アプリのお願い','最終ダウンロード'];
+function timefmt(t){let s=Math.floor(t/1000),m=Math.floor(s/60);return `${String(m).padStart(2,'0')}:${String(s%60).padStart(2,'0')}.${Math.floor(t%1000/100)}`}
+function update(){if(start)elapsed=Date.now()-start;$('#timer').textContent=timefmt(elapsed);$('#miss').textContent=miss;$('#fill').style.width=`${Math.max(0,stage)/total*100}%`}
+function toast(t){$('#toast').innerHTML=`<div class="toast">${t}</div>`;clearTimeout(flags.toastTimer);flags.toastTimer=setTimeout(()=>$('#toast').innerHTML='',2100)}
+function wrong(t='広告でした。残念！'){sfx('wrong');miss++;update();toast('⚠️ '+t);$('#browser').classList.remove('shake');void $('#browser').offsetWidth;$('#browser').classList.add('shake')}
+function btn(text,fn,cls='secondary'){let b=document.createElement('button');b.className=cls;b.textContent=text;b.onclick=fn;return b}
+function next(){sfx('next');stage++;flags={};layer.innerHTML='';update();render();if(gameMode==='hard'&&!devMode&&[1,4,8].includes(stage)&&!hardGateSeen.has(stage)){hardGateSeen.add(stage);hardAffiliateGate(stage)}}
+function base(title,desc,body){screen.innerHTML=`<div class="site"><div class="pill">${Math.max(stage+1,0)} / ${total} · ${stages[stage]||'スタート'}</div><h1>${title}</h1>${gameMode==='hard'?'':`<p class="muted">${desc}</p>`}${body}</div>`}
+function popup(html){layer.innerHTML=`<div class="overlay"><div class="modal">${html}</div></div>`}
+function render(){ $('#url').textContent=stage<0?'https://totally-normal.example':`https://totally-normal.example/${['file','privacy','offers','verify','signup','two-factor','security','watch','account','search','survey','final'][stage]||''}`;
+if(stage===-1){screen.innerHTML=`<div class="site end"><div style="font-size:64px">📁</div><h1>ただダウンロード<br>したいだけなのに。</h1><p class="muted">ダウンロードまで、あと少し。</p><div class="panel" style="text-align:left"><b>ルール</b><p class="muted">本物のボタンを探し、広告や理不尽な画面を突破しよう。誤クリックは記録されるけどゲームオーバーにはならない。</p><p class="muted">⏱️ クリアタイムを計測 / 📱 スマホ対応 / 🎲 検索結果の順番がランダム</p></div><p class="muted" style="font-size:13px">🎵 控えめな8-bit風BGMつき · 開始すると音楽が流れます（右上でOFFにできます）</p><button class="primary wide" id="begin">ノーマルモード</button><button class="secondary wide" id="beginHard" style="margin-top:10px;border:2px solid #ea580c;color:#9a3412;font-weight:800">アフィリエイトサイト広告モード</button>${getModeBest('normal')?`<p class="muted">自己ベスト：${timefmt(getModeBest('normal'))}</p>`:''}${getModeBest('hard')?`<p class="muted" style="font-size:12px">高難易度ベスト：${timefmt(getModeBest('hard'))}</p>`:''}</div>`;$('#begin').onclick=()=>beginMode('normal');$('#beginHard').onclick=()=>beginMode('hard');return}
+if(stage===0){base('ファイルを受け取る','どのダウンロードボタンが本物？',`<div class="panel"><div class="row between"><b>共有ファイル.zip</b><span class="tiny">18.4 MB</span></div><p class="muted">アップロード完了。ファイルの準備ができました。</p><div class="adbox"><span class="adtag">スポンサー</span><button id="f1" class="fake wide">⬇ 今すぐダウンロード</button></div><div style="height:20px"></div><button id="real" class="secondary wide">ファイルを保存する (18.4 MB)</button><div style="height:14px"></div><div class="adbox"><span class="adtag">広告</span><button id="f2" class="primary wide">DOWNLOAD NOW →</button></div></div>`);$('#f1').onclick=()=>wrong('大きいボタンが正しいとは限りません');$('#f2').onclick=()=>wrong();$('#real').onclick=()=>{toast('ダウンロードの前にCookie設定が必要です');setTimeout(next,700)};return}
+if(stage===1){base('プライバシーを尊重しています♡','Cookieを拒否して先に進もう。',`<div class="panel"><h3>あなたの体験を最適化</h3><p class="muted">当サイトおよび999社のパートナーがデータを利用します。</p><button id="accept" class="primary wide">すべて同意して続ける</button><div style="height:10px"></div><button id="settings" class="link wide">細かい設定を見る ›</button></div>`);$('#accept').onclick=()=>wrong('同意しちゃいました。拒否を探そう');$('#settings').onclick=()=>{popup(`<h2>Cookieの詳細設定</h2><p class="muted">あなたの選択を尊重するため、まず選択してください。</p><label class="check"><input type="checkbox" id="c1" checked> パーソナライズ広告</label><label class="check"><input type="checkbox" id="c2" checked> 行動分析</label><label class="check"><input type="checkbox" id="c3" checked> 追加パートナー</label><button id="save" class="primary wide">設定を保存</button><button id="reject" class="link wide" style="font-size:11px">すべて拒否して続ける</button>`);$('#save').onclick=()=>wrong('保存しても拒否にはなりません');$('#reject').onclick=next};return}
+if(stage===2){base('重要なお知らせ','広告を閉じて続きを表示してください。',`<div class="panel"><h3>広告の裏にコンテンツがあります</h3><p class="muted">画面を確認して進んでください。</p></div>`);flags.closed=0;adPop();return}
+if(stage===3){base('あなたは人間ですか？','指定されたものをすべて選択してください。',`<div class="panel"><div class="row"><span style="font-size:25px">🤖</span><b>私はロボットではありません</b></div><p class="muted">このサイトを保護するために確認が必要です。</p><button id="verify" class="primary wide">確認する</button></div>`);$('#verify').onclick=()=>{flags.captchaRound=0;showCaptcha()};return}
+if(stage===4){base('無料アカウントを作成','パスワードを設定するとファイルを受け取れます。',`<div class="panel"><label>新しいパスワード</label><input id="pw" type="text" placeholder="パスワード" style="width:100%;padding:13px;border:1px solid #cbd5e1;border-radius:8px;margin:9px 0"><div id="rules" class="hint">8文字以上にしてください</div><button id="submit" class="primary wide" style="margin-top:12px">登録する</button></div>`);flags.rule=0;$('#submit').onclick=()=>{let v=$('#pw').value;let tests=[v.length>=8,/[A-Z]/.test(v),/[0-9]/.test(v),/[!@#$%&*]/.test(v),/猫/.test(v)];if(tests[flags.rule]){flags.rule++;if(flags.rule===5){next();return}$('#rules').textContent=['','大文字のアルファベットが必要です','数字が必要です','記号 !@#$%&* が必要です','「猫」という漢字を含めてください'][flags.rule];toast('新しい条件が見つかりました！')}else wrong('パスワードが条件を満たしていません')};return}
+if(stage===5){base('本人確認が必要です','登録は完了しました。あと少しだけ確認をお願いします。',`<div class="panel"><div class="pill">本人確認 · ステップ <span id="authStep">1</span> / 4</div><div id="authContent" style="margin-top:15px"></div><p class="tiny">※ これはゲーム内の架空の認証です。実際のメールアドレスやパスワードは入力しないでください。</p></div>`);flags.auth=0;drawAuth();return}
+if(stage===6){base('セキュリティ警告が出ました','突然現れた警告を見分けて、元のページに戻ろう。',`<div class="panel"><div class="row between"><b>📁 共有ファイルの受け取り</b><span class="tiny">18.4 MB</span></div><p class="muted">ページを表示しようとしています…</p><div class="hint">※ ここからの警告はすべてゲーム内の架空の演出です。実際の端末には影響しません。</div></div>`);flags.virusStep=0;virusWarning();return}
+if(stage===7){base('あと少しで完了！','この短い動画広告をスキップしてください。',`<div class="panel"><div class="ad-video"><div class="ad-video-inner"><div class="ad-video-pill">SPONSORED · PR</div><div class="ad-video-title">時間を節約する<br>究極のサービス</div><div class="ad-video-price">今なら 0円*</div><div style="font-size:11px;opacity:.85">*詳細を確認するには会員登録が必要です</div></div></div><div class="ad-video-progress"><div id="adProgress"></div></div><div class="row between" style="margin-top:15px"><span id="countdown" class="muted">スキップまで ${gameMode==='hard'?8:5} 秒</span><button id="skip" class="secondary">スキップ ›</button></div></div>`);flags.deadline=Date.now()+(gameMode==='hard'?8000:5000);flags.adInterval=setInterval(()=>{if(stage!==7){clearInterval(flags.adInterval);return}let left=Math.max(0,Math.ceil((flags.deadline-Date.now())/1000));$('#countdown').textContent=left?`スキップまで ${left} 秒`:'スキップ可能';$('#adProgress').style.width=`${Math.min(100,Math.max(0,(1-(flags.deadline-Date.now())/(gameMode==='hard'?8000:5000))*100))}%`;$('#skip').textContent=left?'スキップ ›':'広告を閉じる ✓'},150);$('#skip').onclick=()=>{if(Date.now()<flags.deadline){wrong('まだスキップできません');flags.deadline+=900}else{clearInterval(flags.adInterval);next()}};return}
+if(stage===8){base('無料体験が有効になりました！','なぜか登録されていた無料体験を解約して先に進もう。',`<div class="panel"><h3>✨ プレミアム会員</h3><p class="muted">あなたは現在、無料体験中です。</p><button id="keep" class="primary wide">特典を受け取って続ける</button><button id="cancel" class="link wide">プランの管理</button></div>`);$('#keep').onclick=()=>wrong('引き止められました');$('#cancel').onclick=()=>cancelFlow(0);return}
+if(stage===9){base('本物のページを探せ','検索結果から公式のファイル受取ページを探してください。',`<div class="panel"><div class="row"><input value="共有ファイル 受け取り" readonly style="padding:12px;border:1px solid #cbd5e1;border-radius:8px;flex:1;min-width:0"><button class="secondary" id="searchAgain">検索</button></div><p class="tiny">検索結果：スポンサーと通常の結果が混在しています</p><div id="results"></div></div>`);let entries=[{ad:true,title:'【公式】共有ファイルを今すぐ受け取る',url:'super-download.example',desc:'高速ダウンロードはこちら！'},{ad:false,title:'共有ファイルの受け取りページ',url:'totally-normal.example/files/receive',desc:'共有されたファイルを確認します。'},{ad:true,title:'ダウンロードはこちら（無料）',url:'click-now.example',desc:'簡単・最速・安全（広告）'},{ad:true,title:'ファイルが見つかりました！',url:'instant-files.example',desc:'今すぐクリックして確認'}];entries.sort(()=>Math.random()-.5);$('#results').innerHTML=entries.map((e,i)=>`<div style="padding:15px 0;border-bottom:1px solid #e2e8f0"><div class="tiny">${e.ad?'スポンサー · ':''}${e.url}</div><button class="link" style="font-size:16px;text-align:left;padding:6px 0" data-result="${i}">${e.title}</button><div class="muted">${e.desc}</div></div>`).join('');document.querySelectorAll('[data-result]').forEach(b=>b.onclick=()=>{if(entries[+b.dataset.result].ad)wrong('広告の検索結果でした。URLとスポンサー表記を確認！');else next()});$('#searchAgain').onclick=()=>wrong('検索し直してもスポンサーが増えるだけでした');return}
+if(stage===10){flags.permissionStep=0;showPermissionFlow();return}
+if(stage===11){base('最終確認','すべての手続きが完了しました。ファイルを受け取れます。',`<div class="panel"><h3>📦 共有ファイル.zip</h3><p class="muted">ファイルの準備ができました。</p><div class="adbox"><span class="adtag">PR</span><button id="finalFake" class="fake wide">ダウンロードはこちら！</button></div><div style="height:16px"></div><button id="finish" class="secondary wide">⬇ 共有ファイル.zip を保存</button></div>`);$('#finalFake').onclick=()=>wrong('最後まで広告でした');$('#finish').onclick=finalSequence;return}}
+
+function hardAffiliateGate(current){
+ const packs={
+  1:{title:'コンテンツを表示する前に',label:'スポンサーからのお知らせ',traps:['無料で続ける','広告をスキップ','安全なページへ進む'],real:'この案内を閉じる'},
+  4:{title:'広告ブロックが検出されました',label:'推奨コンテンツ',traps:['ブロックを解除','高速モードで続ける','続行（推奨）'],real:'今は設定しない'},
+  8:{title:'あなたに最適なプランを選択',label:'パートナー提供',traps:['おすすめを適用','無料プランを開始','すぐにダウンロード'],real:'プランを選ばずに戻る'}
+ };
+ const v=packs[current];
+ const positions=[...v.traps.map((text,i)=>({text,real:false,i})),{text:v.real,real:true}];
+ for(let i=positions.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[positions[i],positions[j]]=[positions[j],positions[i]]}
+ popup(`<div class="hard-gate"><div class="adtag">${v.label}</div><h2>${v.title}</h2><p class="tiny">提供：affiliate-partners.example</p><div class="hard-choices">${positions.map((o,i)=>`<button data-gate="${i}" class="${o.real?'hard-real':'hard-bait'}">${o.text}</button>`).join('')}</div></div>`);
+ document.querySelectorAll('[data-gate]').forEach(b=>b.onclick=()=>{
+  const selected=positions[+b.dataset.gate];
+  if(selected.real)layer.innerHTML='';
+  else wrong('広告リンクを選択しました');
+ });
+}
+function drawAuth(){
+ const c=$('#authContent');$('#authStep').textContent=flags.auth+1;
+ if(flags.auth===0){c.innerHTML=`<h3>メールアドレスを確認</h3><p class="muted">確認用メールアドレスを入力してください。</p><input id="authMail" type="text" autocomplete="off" placeholder="114514810.com" style="width:100%;padding:13px;border:1px solid #cbd5e1;border-radius:8px"><button class="primary wide" id="authSend" style="margin-top:12px">確認コードを送信</button><p class="tiny">ゲーム用のダミーアドレス「114514810.com」を入力</p>`;$('#authSend').onclick=()=>{if($('#authMail').value.trim().toLowerCase()==='114514810.com'){flags.auth++;drawAuth()}else wrong('このゲームではダミーアドレスを使ってください')};return}
+ if(flags.auth===1){c.innerHTML=`<h3>メールを確認してください</h3><p class="muted">9桁の認証コードを送信しました。（架空）</p><div style="padding:15px;background:#f1f5f9;border-radius:10px;margin:12px 0"><span class="tiny">受信トレイ</span><p><b>本人確認コードのお知らせ</b></p><p id="authLetter" class="muted">本文を表示するにはメールを開いてください。</p><button class="secondary" id="authOpen">メールを開く</button></div><input id="authCode" inputmode="numeric" maxlength="9" placeholder="9桁のコード" style="width:100%;padding:13px;border:1px solid #cbd5e1;border-radius:8px"><button class="primary wide" id="authCheck" style="margin-top:10px">確認する</button><button class="link wide" id="authResend">コードを再送信</button>`;flags.code='810114514';$('#authOpen').onclick=()=>{$('#authLetter').textContent='認証コード：'+flags.code+'　※ 5分以内に入力してください。'};$('#authResend').onclick=()=>{wrong('再送信したので古いコードは無効です');drawAuth()};$('#authCheck').onclick=()=>{if($('#authCode').value===flags.code){flags.auth++;drawAuth()}else wrong('認証コードが違います')};return}
+ if(flags.auth===2){c.innerHTML=`<h3>パスキーで続行</h3><p class="muted">このサイトはパスキーによる追加認証を要求しています。</p><div style="padding:18px;border:1px solid #dbe3ef;border-radius:14px;text-align:center"><div style="font-size:42px">🔑</div><b>パスキーを使用しますか？</b><p class="tiny">これはゲーム内の偽ダイアログです</p><button class="primary wide" id="authPasskey">パスキーで続行</button><button class="link wide" id="authOther">別の方法を試す</button></div>`;$('#authPasskey').onclick=()=>{wrong('この端末には利用可能なパスキーがありません');};$('#authOther').onclick=()=>{flags.auth++;drawAuth()};return}
+ c.innerHTML=`<h3>別の確認方法</h3><p class="muted">認証アプリが使えない場合は、バックアップコードを使用してください。</p><div style="background:#eff6ff;border-radius:10px;padding:15px;margin:12px 0"><b>バックアップコード</b><p class="tiny">設定画面の奥に保存されています</p><button id="authSettings" class="secondary wide">セキュリティ設定を開く</button><div id="authBackup" style="display:none;margin-top:12px"><p>バックアップコード：<b>MUR810</b></p></div></div><input id="authBackupInput" placeholder="バックアップコード" style="width:100%;padding:13px;border:1px solid #cbd5e1;border-radius:8px"><button id="authFinish" class="primary wide" style="margin-top:10px">本人確認を完了</button>`;$('#authSettings').onclick=()=>{$('#authBackup').style.display='block'};$('#authFinish').onclick=()=>{if($('#authBackupInput').value.trim().toUpperCase()==='MUR810')next();else wrong('バックアップコードが違います')};
+}
+
+function adPop(){let variants=[{title:'あなたが100万人目の訪問者です！',body:'今すぐ景品を受け取る',fake:'✕',real:'広告を閉じる'},{title:'今だけ！無料ダウンロード',body:'続行するにはこちら',fake:'広告を閉じる ✕',real:'閉じる（小）'},{title:'システムのお知らせ',body:'これは架空の広告です',fake:'閉じる',real:'✕'}];let i=flags.closed,v=variants[i];popup(`<div class="row between"><span class="adtag">広告 · ${i+1}/3</span><button id="falseX" class="close">${v.fake}</button></div><h2 style="margin-top:20px">${v.title}</h2><div class="adbox" style="text-align:center;margin:16px 0"><div style="font-size:35px">${['🎉','💸','⚠️'][i]}</div><button id="adAction" class="fake wide">${v.body}</button></div><button id="trueX" class="link" style="font-size:11px">${v.real}</button>`);$('#falseX').onclick=()=>wrong('偽の閉じるボタンでした');$('#adAction').onclick=()=>wrong('広告を押してしまいました');$('#trueX').onclick=()=>{flags.closed++;if(flags.closed>=3){layer.innerHTML='';next()}else adPop()}}
+function captchaArt(kind,variant){
+ const sky=['#a5d4ee','#b9d6e3','#e7cbb4'][variant%3], road=['#606b79','#566171','#666775'][variant%3];
+ const signal=kind==='signal'?`<rect x="57" y="20" width="5" height="72" fill="#45494f"/><rect x="47" y="13" width="25" height="49" rx="5" fill="#222b30" stroke="#d5d9d9" stroke-width="2"/><circle cx="59.5" cy="23" r="6" fill="#e94139"/><circle cx="59.5" cy="37" r="6" fill="#efc94c"/><circle cx="59.5" cy="51" r="6" fill="#3fa66b"/>`: '';
+ const car=kind==='car'?`<rect x="22" y="59" width="68" height="23" rx="6" fill="#e8e9e9"/><path d="M34 60 L45 46 H70 L81 60" fill="#98c6d9" stroke="#e8e9e9" stroke-width="5"/><circle cx="38" cy="83" r="8" fill="#252b36"/><circle cx="77" cy="83" r="8" fill="#252b36"/>`:'';
+ const tree=kind==='tree'?`<rect x="51" y="33" width="9" height="52" fill="#7b5a44"/><circle cx="55" cy="29" r="24" fill="#43895e"/><circle cx="38" cy="43" r="17" fill="#4a9b66"/><circle cx="71" cy="41" r="17" fill="#377b55"/>`:'';
+ const vegetable=kind==='cabbage'||kind==='lettuce';
+ const veg=vegetable?`<rect width="112" height="112" fill="#e6d5bb"/><ellipse cx="56" cy="87" rx="40" ry="12" fill="#9a826a" opacity=".25"/>${kind==='cabbage'?`<circle cx="56" cy="57" r="38" fill="#8ab76a" stroke="#477b42" stroke-width="3"/><path d="M27 57 Q38 17 60 32 Q88 30 86 56 Q90 82 59 90 Q25 90 27 57" fill="#a8ce86" stroke="#629353" stroke-width="3"/><path d="M54 23 Q27 45 44 61 Q62 76 78 56 M26 57 Q46 43 58 63 Q69 82 58 92 M78 32 Q66 43 80 65" fill="none" stroke="#5f934e" stroke-width="3"/>`:`<path d="M24 77 Q8 54 26 42 Q12 24 37 24 Q42 7 61 25 Q85 6 87 34 Q109 43 91 65 Q102 88 76 87 Q55 106 39 85 Z" fill="#5cae56" stroke="#357a3c" stroke-width="3"/><path d="M35 77 Q20 50 42 43 Q37 26 58 38 Q81 24 79 49 Q94 71 73 75 Q52 94 35 77" fill="#9bda75" stroke="#4d9948" stroke-width="3"/><path d="M56 90 Q51 61 61 39 M36 60 Q49 59 60 69 M80 55 Q69 60 60 69" fill="none" stroke="#f0f6c0" stroke-width="3"/>`}`:'';
+ const house=kind==='house'?`<rect x="25" y="42" width="63" height="43" fill="#ead7b9"/><path d="M18 45 L56 16 L95 45" fill="#b2574d"/><rect x="51" y="60" width="15" height="25" fill="#845d4c"/><rect x="32" y="51" width="14" height="12" fill="#9ac7e3"/>`:'';
+ return `<svg viewBox="0 0 112 112" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="112" height="112" fill="${sky}"/><path d="M0 62 L112 56 V112 H0" fill="${road}"/><path d="M0 100 L112 94" stroke="#e3e0bc" stroke-width="3" stroke-dasharray="17 11"/><path d="M0 62 L112 56" stroke="#d5d7d5" stroke-width="4"/>${signal}${car}${tree}${house}${veg}<rect width="112" height="112" fill="none" stroke="#0002" stroke-width="2"/></svg>`;
+}
+function showCaptcha(){
+ const rounds=[
+  {title:'信号機をすべて選んでください',desc:'まずは普通の画像認証です。',test:k=>k==='signal',pool:['signal','car','signal','tree','signal','car','house','signal','tree']},
+  {title:'キャベツをすべて選んでください',desc:'レタスが混ざっています。よく似た葉っぱに注意。',test:k=>k==='cabbage',pool:['lettuce','cabbage','lettuce','cabbage','cabbage','lettuce','cabbage','lettuce','cabbage']},
+  {title:'野菜ではないものをすべて選んでください',desc:'「野菜を選べ」とは言っていません。',test:k=>k!=='cabbage'&&k!=='lettuce',pool:['cabbage','car','lettuce','tree','cabbage','house','lettuce','signal','cabbage']}
+ ];
+ const r=rounds[flags.captchaRound||0];
+ // Fisher-Yatesで各ラウンドの並びをランダム化
+ const order=r.pool.map((kind,i)=>({kind,i}));
+ for(let i=order.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}
+ const correct=order.map((v,i)=>r.test(v.kind)?i:-1).filter(i=>i>=0).sort((a,b)=>a-b).join(',');
+ popup(`<div class="pill">ロボット認証 ${flags.captchaRound+1} / 3</div><h2>${r.title}</h2><p class="muted">${r.desc}</p><div class="captcha" id="tiles">${order.map((v,i)=>`<button class="tile" data-i="${i}" aria-label="画像 ${i+1}" aria-pressed="false">${captchaArt(v.kind,v.i+i)}</button>`).join('')}</div><button id="capDone" class="primary wide" style="margin-top:12px">確認</button><p class="tiny" style="text-align:center">画像を選んでから「確認」を押してください。</p>`);
+ document.querySelectorAll('.tile').forEach(x=>x.onclick=()=>{x.classList.toggle('sel');x.setAttribute('aria-pressed',String(x.classList.contains('sel')))});
+ $('#capDone').onclick=()=>{
+  const chosen=[...document.querySelectorAll('.tile.sel')].map(x=>+x.dataset.i).sort((a,b)=>a-b).join(',');
+  if(chosen===correct){sfx('next');flags.captchaRound++;if(flags.captchaRound===3)next();else{toast('認証成功！ 追加の確認が必要です');showCaptcha()}}
+  else{wrong('画像が一致しません。よく読んで選び直してください');document.querySelectorAll('.tile.sel').forEach(x=>{x.classList.remove('sel');x.setAttribute('aria-pressed','false')})}
+ };
+}
+function virusWarning(){
+ const step=flags.virusStep||0;
+ // 各場面で違う操作を要求する。正解は押すたびに別の場所に移る。
+ if(step===0){
+  popup(`<div class="virus-dialog"><div class="virus-head"><span>⚠ セキュリティ警告</span><span class="virus-fiction">ゲーム内の架空広告</span></div><div class="virus-symbol">!</div><h2>危険なファイルを検出しました！</h2><p class="muted">この警告はサイトが表示したものです。</p><div class="virus-counter">検出された脅威：999件（自称）</div><button id="virusTrap" class="danger wide">今すぐ修復する</button><p class="tiny">右上の × でこの広告を閉じられます。</p><button id="virusClose" class="virus-x" aria-label="警告を閉じる">×</button></div>`);
+  $('#virusTrap').onclick=()=>wrong('修復ボタンも広告でした');
+  $('#virusClose').onclick=()=>{sfx('next');flags.virusStep=1;virusWarning()};
+ }else if(step===1){
+  popup(`<div class="virus-dialog"><div class="virus-head"><span>🛡 安全性チェック</span><span class="virus-fiction">ゲーム内の架空広告</span></div><h2>端末の安全性が 1% です</h2><p class="muted">安全のため、次の操作を選択してください。</p><div class="virus-options"><button id="virusScan" class="secondary">🔍 もう一度スキャン</button><button id="virusIgnore" class="secondary">通知を無視して続行</button><button id="virusProtect" class="primary">🛡 保護プランを有効化</button></div><p class="tiny">※ 本物の端末は診断していません。</p></div>`);
+  $('#virusScan').onclick=()=>wrong('スキャンしても同じ広告が表示されるだけでした');
+  $('#virusProtect').onclick=()=>wrong('保護プランは広告でした');
+  $('#virusIgnore').onclick=()=>{sfx('next');flags.virusStep=2;virusWarning()};
+ }else{
+  popup(`<div class="virus-dialog"><div class="virus-head"><span>↩ ページを離れますか？</span><span class="virus-fiction">ゲーム内の架空広告</span></div><h2>本当にこのページから離れますか？</h2><p class="muted">閉じると「特別な特典」が失われます。</p><div class="virus-counter">特典の内容：未公開</div><div class="virus-options"><button id="virusStay" class="primary">このページに残る</button><button id="virusLeave" class="secondary">特典を諦めて元のページへ</button></div></div>`);
+  $('#virusStay').onclick=()=>wrong('サイトに引き止められました');
+  $('#virusLeave').onclick=()=>{layer.innerHTML='';next()};
+ }
+}
+
+function cancelFlow(i){let steps=[['解約をご希望ですか？','会員特典が失われます。本当によろしいですか？','それでも解約する'],['最後のチャンス！','今なら永久に無料……という気持ちで応援します。','特典を諦める'],['解約理由を教えてください','回答は任意と書いてありますが、選択してください。','解約を確定する']];let s=steps[i];popup(`<h2>${s[0]}</h2><p class="muted">${s[1]}</p>${i===2?'<select id="reason" style="width:100%;padding:12px;margin-bottom:12px"><option value="">選択してください</option><option>使っていない</option><option>勝手に登録された</option><option>ファイルが欲しいだけ</option></select>':''}<button id="stay" class="primary wide">${['解約せず続ける','無料のまま続ける','解約をやめる'][i]}</button><button id="leave" class="link wide">${s[2]}</button>`);$('#stay').onclick=()=>wrong('引き止めに引っかかりました');$('#leave').onclick=()=>{if(i===2&&!$('#reason').value){wrong('理由を選んでください');return}if(i===2)next();else cancelFlow(i+1)}}
+function showPermissionFlow(){
+ if(stage!==10)return;
+ const step=flags.permissionStep||0;
+ if(step>=4){
+  layer.innerHTML='';
+  base('設定完了','ダウンロードの準備に戻ります。',`<div class="panel" style="text-align:center"><h2>すべての設定が完了しました</h2><p class="muted">ダウンロードには、どの権限も必要ありませんでした。</p><button id="permissionsDone" class="primary wide">ダウンロードへ戻る</button></div>`);
+  $('#permissionsDone').onclick=next;
+  return;
+ }
+ // 背景は毎回同じページのまま。実際のOSの許可ダイアログを模した架空の画面を上に重ねる。
+ if(step===0){
+  base('ファイルを準備しています','準備中…',`<div class="panel"><div class="row between"><b>共有ファイル.zip</b><span class="pill">準備中</span></div><p class="muted">ファイルのダウンロードまであと少しです。</p><div class="progress"><div style="width:87%"></div></div></div>`);
+ }
+ const prompts=[
+  {icon:'★',heading:'アプリを評価',sub:'まだ使っていませんか？',body:'使い心地はいかがでしたか？',kind:'review'},
+  {icon:'🔔',heading:'通知を許可',sub:'totally-normal.example',body:'「totally-normal.example」が通知の送信を求めています。',kind:'notice'},
+  {icon:'📷',heading:'カメラへのアクセス',sub:'totally-normal.example',body:'「totally-normal.example」がカメラの使用を求めています。',kind:'camera'},
+  {icon:'📍',heading:'位置情報の使用',sub:'totally-normal.example',body:'「totally-normal.example」が位置情報の使用を求めています。',kind:'location'}
+ ];
+ const p=prompts[step];
+ const baseClose=()=>{flags.permissionStep++;layer.innerHTML='';showPermissionFlow()};
+ const permissionReaction=(kind)=>{
+  const reactions={
+   notice:{icon:'🔔',title:'通知を有効にしました',body:'さっそく通知です。',extra:'「通知を有効にしていただきありがとうございます」という通知が届きました。',action:'通知を閉じる'},
+   camera:{icon:'📷',title:'カメラを起動しました',body:'撮影するものがありません。',extra:'ダウンロードするファイルは、カメラでは撮れません。',action:'カメラを閉じる'},
+   location:{icon:'📍',title:'位置情報を確認しました',body:'現在地：ダウンロード画面',extra:'目的地：ダウンロード完了まであと少し。',action:'地図を閉じる'},
+   review:{icon:'⭐',title:'レビューを受け付けました',body:'評価ありがとうございます。',extra:'まだダウンロードは始まっていません。',action:'閉じる'}
+  };
+  const r=reactions[kind];
+  layer.innerHTML=`<div class="permission-dim"><div class="permission-scene"><div class="permission-native permission-reaction"><div class="permission-native-icon">${r.icon}</div><h2>${r.title}</h2><p>${r.body}</p><div class="permission-reaction-extra">${r.extra}</div><button class="permission-reaction-close" id="permissionReactionClose">${r.action}</button></div><span class="permission-disclaimer">ゲーム内の架空の演出です。実際の権限は使用しません。</span></div></div>`;
+  $('#permissionReactionClose').onclick=baseClose;
+ };
+ const card=step===0
+  ? `<div class="permission-native permission-review"><div class="permission-appicon">📁</div><div class="permission-small">ただダウンロードしたいだけなのに。</div><h2>このアプリを評価する</h2><p>ご利用ありがとうございます！</p><div class="permission-stars" id="permissionStars"><button data-star="1">★</button><button data-star="2">★</button><button data-star="3">★</button><button data-star="4">★</button><button data-star="5">★</button></div><button id="permissionLater" class="permission-link">あとで</button><button id="permissionNever" class="permission-link">今はしない</button></div>`
+  : `<div class="permission-native ${step===1?'permission-notice':step===2?'permission-camera':'permission-location'}"><div class="permission-native-icon">${p.icon}</div><h2>${p.body}</h2><p class="permission-small">ダウンロードの準備に必要な設定です。</p><div class="permission-native-actions"><button id="permissionNo">${step===3?'許可しない':'許可しない'}</button><button id="permissionYes">${step===3?'今回のみ許可':'許可する'}</button></div></div>`;
+ layer.innerHTML=`<div class="permission-dim" id="permissionDim"><div class="permission-scene">${card}<span class="permission-disclaimer">ゲーム内の架空の画面です。実際の権限は要求しません。</span></div></div>`;
+ if(step===0){
+  document.querySelectorAll('[data-star]').forEach(b=>b.onclick=()=>{
+   const n=+b.dataset.star;
+   document.querySelectorAll('[data-star]').forEach(x=>x.classList.toggle('picked',+x.dataset.star<=n));
+   setTimeout(()=>{if(stage===10&&flags.permissionStep===step)permissionReaction('review')},300);
+  });
+  $('#permissionLater').onclick=baseClose;
+  $('#permissionNever').onclick=baseClose;
+ }else{
+  $('#permissionNo').onclick=baseClose;
+  $('#permissionYes').onclick=()=>wrong('このダウンロードに権限は必要ありません。許可しないを選んでください');
+ }
+}
+function finalSequence(){
+ // 最後のひと押しで、これまでの広告が一瞬だけ復活する。再度閉じる作業はさせない。
+ sfx('wrong');
+ layer.innerHTML='';
+ screen.innerHTML=`<div class="site end"><h1>ダウンロードを開始しています…</h1><p class="muted">最後の確認を行っています。</p><div class="panel"><div class="progress"><div id="lastProgress" style="width:0%"></div></div><p id="lastStatus" class="muted">0%</p></div></div>`;
+ let n=0;
+ const timer=setInterval(()=>{
+   if(stage!==11){clearInterval(timer);return}
+   n=Math.min(99,n+17);
+   const bar=$('#lastProgress'),label=$('#lastStatus');
+   if(bar)bar.style.width=n+'%';
+   if(label)label.textContent=n+'%';
+   if(n>=99){
+     clearInterval(timer);
+     setTimeout(()=>{
+       if(stage!==11)return;
+       screen.innerHTML=`<div class="site end"><div style="font-size:54px">📢</div><h1>お知らせがあります</h1><p class="muted">今まで閉じた広告が、最後にもう一度だけ登場します。</p><div class="final-burst"><span>🎉 今だけ無料！</span><span>スポンサー</span><span>あなたにおすすめ</span><span>広告を閉じましたか？</span><span>DOWNLOAD NOW!</span></div><p class="tiny">安心してください。今回は自動で消えます。</p><button id="endNow" class="primary wide">結果を見る</button></div>`;
+       $('#endNow').onclick=finish;
+     },450);
+   }
+ },105);
+}
+function resultScore(ms, mistakes){
+ // 2分以内なら時間満点。以後10秒ごとに1点減点、ミス1回につき3点減点。
+ const seconds=ms/1000;
+ const timePenalty=Math.max(0,Math.ceil((seconds-(gameMode==='hard'?90:120))/(gameMode==='hard'?8:10)));
+ const score=Math.max(0,Math.min(100,100-timePenalty-mistakes*(gameMode==='hard'?5:3)));
+ const rank=score>=95?'S':score>=80?'A':score>=60?'B':score>=40?'C':'D';
+ return {score,rank};
+}
+function finish(){const {score,rank}=resultScore(Date.now()-start,miss);sfx('win');clearInterval(tick);elapsed=Date.now()-start;update();if(!devMode&&(!best||elapsed<best)){best=elapsed;(()=>{try{localStorage.setItem(modeBestKey(),String(best))}catch(e){}})()}$('#fill').style.width='100%';layer.innerHTML='';screen.innerHTML=`<div class="site end"><div style="font-size:65px">🏆</div><h1>ダウンロード完了！</h1><p class="muted">長い手続きを突破して、ついにファイルを受け取りました。</p><div class="panel" style="text-align:left"><div class="row between"><b>📄 ダウンロード完了のお知らせ.txt</b><span class="tiny">1 KB</span></div><p style="margin-bottom:4px">「ダウンロードが完了しました。」</p><p class="tiny">※ 目的の共有ファイル.zip は含まれていません。</p></div><p class="muted">ファイルを受け取るために、ファイルを受け取ったというお知らせを受け取りました。</p><div class="panel"><div class="muted">サイトからの評価</div><p><b>${miss===0?"広告を一度も押していただけませんでした。":miss<5?"広告への関心を確認しました。":"広告を大変気に入っていただけたようです。"}</b></p><p class="tiny">${miss===0?"広告主一同、残念に思っています。":`誤クリック ${miss} 回を「興味あり」として集計しました。`}</p></div><div class="panel"><div class="muted">総合スコア</div><div style="font-size:48px;font-weight:900;font-variant-numeric:tabular-nums">${score}<span style="font-size:20px"> / 100点</span></div><div class="pill">ランク ${rank}</div><p class="tiny">${gameMode==='hard'?'90秒以内なら時間減点なし。以降8秒ごとに−1点、誤クリック1回につき−5点。':'2分以内なら時間減点なし。以降10秒ごとに−1点、誤クリック1回につき−3点。'}</p></div><div class="panel"><div class="muted">クリアタイム</div><div style="font-size:42px;font-weight:900;font-variant-numeric:tabular-nums">${timefmt(elapsed)}</div><p>誤クリック：<b>${miss}回</b></p><div class="pill">自己ベスト ${timefmt(best)}</div></div><button id="again" class="primary wide">もう一度プレイ</button><button id="copy" class="secondary wide" style="margin-top:10px">結果をコピー</button><p class="tiny">※ ファイルは架空のため、実際のダウンロードはありません。</p></div>`;$('#again').onclick=()=>{hardGateSeen.clear();devMode=false;stage=-1;miss=0;start=0;elapsed=0;flags={};update();render()};$('#copy').onclick=()=>{let t=`ただダウンロードしたいだけなのに。 ${gameMode==='hard'?'アフィリエイトサイト広告モード':'ノーマルモード'} クリア！\nタイム：${timefmt(elapsed)}\n誤クリック：${miss}回\n総合スコア：${score}点 / 100点（ランク ${rank}）`;copyResult(t)}}
+
+// 開発用メニュー。0401はローカルHTML内の簡易ロックであり、セキュリティ機能ではありません。
+function copyResult(t){
+ if(navigator.clipboard&&navigator.clipboard.writeText){
+  navigator.clipboard.writeText(t).then(()=>toast('結果をコピーしました')).catch(()=>fallbackCopy(t));
+ }else fallbackCopy(t);
+}
+function fallbackCopy(t){
+ const field=document.createElement('textarea');field.value=t;field.style.cssText='position:fixed;top:0;left:0;opacity:0';document.body.appendChild(field);field.focus();field.select();
+ let copied=false;try{copied=document.execCommand('copy')}catch(e){}field.remove();
+ toast(copied?'結果をコピーしました':t.replaceAll('\n',' / '));
+}
+function modeBestKey(){return gameMode==='hard'?'adhell_affiliate_best':'adhell_best'}
+function getModeBest(mode){try{return Number(localStorage.getItem(mode==='hard'?'adhell_affiliate_best':'adhell_best')||0)}catch(e){return 0}}
+function beginMode(mode){
+ if(tick)clearInterval(tick);
+ if(flags.adInterval)clearInterval(flags.adInterval);
+ gameMode=mode;hardGateSeen.clear();devMode=false;stage=-1;flags={};miss=0;elapsed=0;best=getModeBest(mode);
+ if(audioOn){try{if(AudioContextClass){audioCtx=audioCtx||new AudioContextClass();audioCtx.resume();startMusic()}}catch(e){}}
+ start=Date.now();tick=setInterval(update,100);next();
+}
+let devUnlocked=false,devMode=false;
+const devOverlay=$('#devOverlay'),devBox=$('#devBox');
+function closeDev(){devOverlay.classList.remove('open')}
+function openDev(){
+ devOverlay.classList.add('open');
+ if(!devUnlocked){
+  devBox.innerHTML=`<div class="dev-head"><h2>⚙ 開発者メニュー</h2><button id="devClose" class="secondary">閉じる</button></div><p class="dev-note">テスト用のステージ移動機能です。</p><input id="devPassword" type="password" inputmode="numeric" autocomplete="off" placeholder="パスワード"><button id="devLogin" class="primary wide">ログイン</button><p id="devError" style="color:#dc2626;font-size:13px"></p>`;
+  $('#devClose').onclick=closeDev;
+  $('#devLogin').onclick=()=>{
+   if($('#devPassword').value==='0401'){devUnlocked=true;openDev()}
+   else $('#devError').textContent='パスワードが違います';
+  };
+  $('#devPassword').onkeydown=e=>{if(e.key==='Enter')$('#devLogin').click()};
+  $('#devPassword').focus();
+  return;
+ }
+ devBox.innerHTML=`<div class="dev-head"><h2>⚙ 開発者メニュー</h2><button id="devClose" class="secondary">閉じる</button></div><p class="dev-note">好きな問題からテストできます。開発者モード中の記録は自己ベストに保存しません。</p><div class="dev-grid" id="devStages"></div><button id="devTitle" class="secondary wide">タイトル画面へ戻る</button>`;
+ $('#devClose').onclick=closeDev;
+ stages.forEach((name,i)=>{
+  const b=btn(`${String(i+1).padStart(2,'0')}. ${name}`,()=>jumpToStage(i),'secondary');
+  $('#devStages').appendChild(b);
+ });
+ $('#devTitle').onclick=()=>jumpToStage(-1);
+}
+function jumpToStage(index){
+ // タイマーや動画広告の旧インターバルを残さず、指定ステージを最初から表示。
+ if(flags.adInterval)clearInterval(flags.adInterval);
+ if(tick)clearInterval(tick);
+ $('#toast').innerHTML='';
+ layer.innerHTML='';
+ closeDev();
+ stage=index;
+ flags={};
+ miss=0;
+ elapsed=0;
+ start=index<0?0:Date.now();
+ devMode=index>=0;
+ if(index>=0){
+  tick=setInterval(update,100);
+  if(audioOn)startMusic();
+ }
+ update();
+ render();
+}
+$('#devToggle').onclick=openDev;
+devOverlay.addEventListener('click',e=>{if(e.target===devOverlay)closeDev()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&devOverlay.classList.contains('open'))closeDev()});
+
+update();render();
+</script></body></html>
